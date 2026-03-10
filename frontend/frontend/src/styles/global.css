@@ -54,24 +54,25 @@ body.dark {
 }
 
 body.light {
-  --text-main: #1c2340;
-  --text-muted: #5f6787;
-  --panel: rgba(255, 255, 255, 0.62);
-  --panel-strong: rgba(255, 255, 255, 0.78);
-  --panel-soft: rgba(243, 247, 255, 0.74);
-  --line: rgba(130, 147, 202, 0.3);
-  --line-strong: rgba(103, 128, 205, 0.5);
+  --text-main: #1a2140;
+  --text-muted: #5d6691;
+  --panel: rgba(255, 255, 255, 0.7);
+  --panel-strong: rgba(255, 255, 255, 0.82);
+  --panel-soft: rgba(247, 250, 255, 0.9);
+  --line: rgba(121, 138, 211, 0.34);
+  --line-strong: rgba(92, 120, 226, 0.56);
   --danger: #d44c76;
   --danger-surface: rgba(234, 113, 151, 0.18);
   --primary-btn-text: #ffffff;
-  --primary-btn-bg: linear-gradient(120deg, #5f76da, #7f6ce9);
+  --primary-btn-bg: linear-gradient(120deg, #5f76da, #8d5df5);
   --app-background:
-    radial-gradient(700px 420px at 10% -8%, rgba(125, 228, 255, 0.24), transparent 72%),
-    radial-gradient(620px 360px at 92% 12%, rgba(196, 176, 255, 0.32), transparent 72%),
-    radial-gradient(560px 360px at 80% 96%, rgba(255, 208, 225, 0.32), transparent 74%),
+    radial-gradient(760px 460px at 10% -8%, rgba(120, 230, 255, 0.36), transparent 72%),
+    radial-gradient(760px 460px at 92% 12%, rgba(191, 163, 255, 0.38), transparent 72%),
+    radial-gradient(620px 400px at 80% 96%, rgba(255, 187, 213, 0.34), transparent 74%),
+    radial-gradient(520px 320px at 36% 70%, rgba(178, 255, 219, 0.24), transparent 75%),
     linear-gradient(140deg, #edf2ff, #f6f8ff 52%, #eef4ff);
   --grain-dot: rgba(60, 76, 132, 0.18);
-  --glass-shadow: 0 22px 46px rgba(123, 138, 180, 0.22);
+  --glass-shadow: 0 22px 46px rgba(101, 120, 177, 0.2);
 }
 
 h1,

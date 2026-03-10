@@ -14,6 +14,13 @@
     color-mix(in srgb, var(--panel-soft) 70%, transparent);
 }
 
+body.light .messages {
+  background:
+    radial-gradient(560px 280px at 12% -5%, rgba(144, 170, 255, 0.24), transparent 70%),
+    radial-gradient(520px 260px at 90% 12%, rgba(238, 176, 255, 0.18), transparent 72%),
+    linear-gradient(180deg, rgba(251, 253, 255, 0.95), rgba(239, 246, 255, 0.95));
+}
+
 .message-row {
   display: flex;
   align-items: flex-end;
@@ -80,6 +87,10 @@
   padding: 10px 12px;
   line-height: 1.4;
   box-shadow: 0 8px 18px color-mix(in srgb, var(--line) 32%, transparent);
+}
+
+body.light .bubble {
+  box-shadow: 0 8px 18px rgba(124, 140, 206, 0.2);
 }
 
 .bubble.mine {
@@ -192,6 +203,10 @@
 .chat-input button:last-of-type {
   color: var(--primary-btn-text);
   background: var(--primary-btn-bg);
+}
+
+body.light .chat-input button:hover {
+  box-shadow: 0 8px 18px rgba(117, 132, 198, 0.22);
 }
 
 @media (max-width: 700px) {
