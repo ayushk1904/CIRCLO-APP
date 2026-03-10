@@ -1,8 +1,8 @@
 .navbar {
   position: fixed;
-  top: 14px;
+  top: 12px;
   right: 16px;
-  z-index: 100;
+  z-index: 120;
 }
 
 .navbar-right {
@@ -11,9 +11,9 @@
 }
 
 .logout-btn {
-  border: 1px solid rgba(255, 123, 159, 0.45);
-  background: rgba(255, 123, 159, 0.16);
-  color: #ffcee1;
+  border: 1px solid color-mix(in srgb, var(--danger) 46%, transparent);
+  background: var(--danger-surface);
+  color: var(--danger);
   border-radius: 999px;
   padding: 8px 14px;
   font-weight: 700;
@@ -23,5 +23,5 @@
 
 .logout-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(255, 123, 159, 0.24);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--danger) 26%, transparent);
 }

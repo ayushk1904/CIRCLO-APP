@@ -9,9 +9,9 @@
   overflow-y: auto;
   padding: 14px 16px;
   background:
-    radial-gradient(560px 280px at 12% -5%, rgba(168, 141, 255, 0.2), transparent 70%),
-    radial-gradient(520px 260px at 90% 12%, rgba(125, 228, 255, 0.16), transparent 72%),
-    rgba(8, 14, 50, 0.55);
+    radial-gradient(560px 280px at 12% -5%, color-mix(in srgb, var(--line-strong) 25%, transparent), transparent 70%),
+    radial-gradient(520px 260px at 90% 12%, color-mix(in srgb, #d8b4fe 18%, transparent), transparent 72%),
+    color-mix(in srgb, var(--panel-soft) 70%, transparent);
 }
 
 .message-row {
@@ -35,16 +35,16 @@
 }
 
 .avatar {
-  background: linear-gradient(130deg, #a88dff, #7de4ff);
-  color: #171d4d;
+  background: var(--primary-btn-bg);
+  color: var(--primary-btn-text);
   margin-right: 8px;
   font-weight: 800;
 }
 
 .bot-avatar {
   margin-right: 8px;
-  color: #171d4d;
-  background: linear-gradient(130deg, #e4a4ff, #a88dff);
+  color: var(--primary-btn-text);
+  background: linear-gradient(130deg, #f5b4ff, #9ca8ff);
 }
 
 .bubble-wrapper {
@@ -58,7 +58,7 @@
 }
 
 .sender-name.ai {
-  color: #e5b1ff;
+  color: color-mix(in srgb, var(--text-main) 80%, #cb8cff);
 }
 
 .ai-badge {
@@ -67,41 +67,41 @@
   font-weight: 700;
   padding: 2px 6px;
   border-radius: 999px;
-  color: #181d4b;
-  background: #d7beff;
+  color: var(--primary-btn-text);
+  background: var(--primary-btn-bg);
 }
 
 .bubble {
   position: relative;
   border-radius: 14px;
-  border: 1px solid rgba(193, 178, 255, 0.24);
-  background: rgba(16, 28, 84, 0.68);
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
   color: var(--text-main);
   padding: 10px 12px;
   line-height: 1.4;
-  box-shadow: 0 8px 18px rgba(4, 8, 34, 0.4);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--line) 32%, transparent);
 }
 
 .bubble.mine {
-  color: #151b48;
-  border-color: rgba(157, 187, 255, 0.42);
-  background: linear-gradient(125deg, #a88dff, #7dd8ff);
+  color: var(--primary-btn-text);
+  border-color: var(--line-strong);
+  background: var(--primary-btn-bg);
 }
 
 .bubble.ai {
-  border-color: rgba(228, 164, 255, 0.45);
-  background: rgba(42, 25, 86, 0.68);
+  border-color: color-mix(in srgb, #d09dff 42%, var(--line));
 }
 
 .chat-image {
   max-width: 220px;
   border-radius: 12px;
   margin-top: 8px;
-  border: 1px solid rgba(193, 178, 255, 0.24);
+  border: 1px solid var(--line);
 }
 
 .bubble a {
-  color: var(--accent-cyan);
+  color: var(--text-main);
+  text-decoration: underline;
 }
 
 .reactions {
@@ -139,8 +139,8 @@
   border-radius: 999px;
   font-size: 12px;
   color: var(--text-muted);
-  border: 1px solid rgba(193, 178, 255, 0.24);
-  background: rgba(10, 17, 58, 0.78);
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
 }
 
 .reply-bar {
@@ -148,8 +148,8 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  border-top: 1px solid rgba(193, 178, 255, 0.2);
-  background: rgba(9, 16, 55, 0.9);
+  border-top: 1px solid var(--line);
+  background: var(--panel);
   padding: 8px 12px;
 }
 
@@ -161,28 +161,28 @@
 .chat-input {
   display: flex;
   gap: 8px;
-  border-top: 1px solid rgba(193, 178, 255, 0.2);
+  border-top: 1px solid var(--line);
   padding: 10px;
-  background: rgba(9, 16, 55, 0.95);
+  background: var(--panel-strong);
 }
 
 .chat-input input {
   flex: 1;
   border-radius: 999px;
-  border: 1px solid rgba(193, 178, 255, 0.28);
-  background: rgba(8, 14, 48, 0.92);
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
   color: var(--text-main);
   padding: 10px 12px;
 }
 
 .chat-input input::placeholder {
-  color: rgba(185, 185, 222, 0.7);
+  color: var(--text-muted);
 }
 
 .chat-input button {
   border-radius: 999px;
-  border: 1px solid rgba(193, 178, 255, 0.36);
-  background: rgba(14, 24, 82, 0.72);
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
   color: var(--text-main);
   min-width: 44px;
   padding: 8px 12px;
@@ -190,8 +190,8 @@
 }
 
 .chat-input button:last-of-type {
-  color: #131a4a;
-  background: linear-gradient(125deg, #a88dff, #7fdfff);
+  color: var(--primary-btn-text);
+  background: var(--primary-btn-bg);
 }
 
 @media (max-width: 700px) {

@@ -1,26 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap");
 
-:root {
-  --bg-0: #040728;
-  --bg-1: #080e38;
-  --bg-2: #0b1145;
-  --panel: rgba(11, 20, 70, 0.6);
-  --panel-strong: rgba(12, 22, 76, 0.82);
-  --panel-soft: rgba(20, 35, 98, 0.5);
-  --line: rgba(193, 178, 255, 0.26);
-  --line-strong: rgba(157, 187, 255, 0.5);
-  --text-main: #f3eeff;
-  --text-muted: #b9b9de;
-  --accent-cyan: #7de4ff;
-  --accent-violet: #a88dff;
-  --accent-pink: #e4a4ff;
-  --danger: #ff7b9f;
-  --radius-sm: 12px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
-  --shadow-lg: 0 18px 40px rgba(2, 5, 25, 0.55);
-}
-
 * {
   box-sizing: border-box;
 }
@@ -35,14 +14,11 @@ body {
   margin: 0;
   font-family: "Manrope", "Segoe UI", sans-serif;
   color: var(--text-main);
-  background:
-    radial-gradient(720px 420px at 22% -4%, rgba(168, 141, 255, 0.3), transparent 68%),
-    radial-gradient(620px 360px at 88% 12%, rgba(125, 228, 255, 0.22), transparent 72%),
-    radial-gradient(540px 300px at 80% 98%, rgba(228, 164, 255, 0.25), transparent 74%),
-    linear-gradient(135deg, var(--bg-0), var(--bg-1) 52%, var(--bg-2));
+  background: var(--app-background);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 body::before {
@@ -50,10 +26,52 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0.8px, transparent 1px);
+  background-image: radial-gradient(circle, var(--grain-dot) 0.9px, transparent 1px);
   background-size: 4px 4px;
-  opacity: 0.06;
+  opacity: 0.22;
   z-index: -1;
+}
+
+body.dark {
+  --text-main: #f3eeff;
+  --text-muted: #b9b9de;
+  --panel: rgba(11, 20, 70, 0.6);
+  --panel-strong: rgba(12, 22, 76, 0.82);
+  --panel-soft: rgba(20, 35, 98, 0.5);
+  --line: rgba(193, 178, 255, 0.26);
+  --line-strong: rgba(157, 187, 255, 0.5);
+  --danger: #ff7b9f;
+  --danger-surface: rgba(255, 123, 159, 0.15);
+  --primary-btn-text: #131a4a;
+  --primary-btn-bg: linear-gradient(120deg, #aa8fff, #7fdfff);
+  --app-background:
+    radial-gradient(720px 420px at 22% -4%, rgba(168, 141, 255, 0.3), transparent 68%),
+    radial-gradient(620px 360px at 88% 12%, rgba(125, 228, 255, 0.22), transparent 72%),
+    radial-gradient(540px 300px at 80% 98%, rgba(228, 164, 255, 0.25), transparent 74%),
+    linear-gradient(135deg, #040728, #080e38 52%, #0b1145);
+  --grain-dot: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 18px 40px rgba(2, 5, 25, 0.55);
+}
+
+body.light {
+  --text-main: #1c2340;
+  --text-muted: #5f6787;
+  --panel: rgba(255, 255, 255, 0.62);
+  --panel-strong: rgba(255, 255, 255, 0.78);
+  --panel-soft: rgba(243, 247, 255, 0.74);
+  --line: rgba(130, 147, 202, 0.3);
+  --line-strong: rgba(103, 128, 205, 0.5);
+  --danger: #d44c76;
+  --danger-surface: rgba(234, 113, 151, 0.18);
+  --primary-btn-text: #ffffff;
+  --primary-btn-bg: linear-gradient(120deg, #5f76da, #7f6ce9);
+  --app-background:
+    radial-gradient(700px 420px at 10% -8%, rgba(125, 228, 255, 0.24), transparent 72%),
+    radial-gradient(620px 360px at 92% 12%, rgba(196, 176, 255, 0.32), transparent 72%),
+    radial-gradient(560px 360px at 80% 96%, rgba(255, 208, 225, 0.32), transparent 74%),
+    linear-gradient(140deg, #edf2ff, #f6f8ff 52%, #eef4ff);
+  --grain-dot: rgba(60, 76, 132, 0.18);
+  --glass-shadow: 0 22px 46px rgba(123, 138, 180, 0.22);
 }
 
 h1,
@@ -72,12 +90,11 @@ p {
 }
 
 a {
-  color: var(--accent-cyan);
-  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
-  text-decoration: underline;
+  opacity: 0.88;
 }
 
 button,
@@ -85,4 +102,29 @@ input,
 textarea,
 select {
   font-family: inherit;
+}
+
+button,
+input,
+textarea {
+  outline: none;
+}
+
+.app-loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--panel-strong);
+  color: var(--text-main);
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+}
+
+.glass-card {
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(14px);
 }

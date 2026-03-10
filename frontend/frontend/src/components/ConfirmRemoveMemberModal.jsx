@@ -1,3 +1,5 @@
+import "./modal.css";
+
 function ConfirmRemoveMemberModal({
   isOpen,
   onClose,
@@ -8,27 +10,23 @@ function ConfirmRemoveMemberModal({
   if (!isOpen) return null;
 
   return (
-    <div style={overlay}>
-      <div style={modal}>
-        <h3>Remove Member</h3>
-        <p>
-          Are you sure you want to remove{" "}
-          <strong>{memberName}</strong> from this circle?
+    <div className="modal-overlay-shared">
+      <div className="modal-card-shared">
+        <h3 className="modal-title-shared">Remove Member</h3>
+        <p className="modal-text-shared">
+          Are you sure you want to remove <strong>{memberName}</strong> from this
+          circle?
         </p>
 
-        <div style={{ marginTop: 16 }}>
-          <button onClick={onClose} disabled={loading}>
+        <div className="modal-actions-shared">
+          <button className="modal-btn-shared" onClick={onClose} disabled={loading}>
             Cancel
           </button>
 
           <button
+            className="modal-btn-shared modal-btn-danger"
             onClick={onConfirm}
             disabled={loading}
-            style={{
-              marginLeft: 8,
-              background: "red",
-              color: "white",
-            }}
           >
             {loading ? "Removing..." : "Remove"}
           </button>
@@ -37,22 +35,5 @@ function ConfirmRemoveMemberModal({
     </div>
   );
 }
-
-const overlay = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 1000,
-};
-
-const modal = {
-  background: "white",
-  padding: 20,
-  borderRadius: 6,
-  width: 350,
-};
 
 export default ConfirmRemoveMemberModal;

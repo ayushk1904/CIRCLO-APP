@@ -12,7 +12,7 @@ import {
   getMyCircles,
   deleteCircle,
   leaveCircle,
-  getMyInvites, // ✅ ADD THIS
+  getMyInvites,
 } from "../services/circle.service";
 
 import logoLight from "../assets/logo-light.png";
@@ -23,7 +23,7 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [circles, setCircles] = useState([]);
-  const [invites, setInvites] = useState([]); // ✅ INVITES STATE
+  const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [darkMode, setDarkMode] = useState(
@@ -38,13 +38,12 @@ function Dashboard() {
   const [deleting, setDeleting] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
-  // 🌙 Theme
   useEffect(() => {
-    document.body.classList.toggle("dark", darkMode);
+    document.body.classList.remove("dark", "light");
+    document.body.classList.add(darkMode ? "dark" : "light");
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  // ✅ LOAD CIRCLES + INVITES
   useEffect(() => {
     if (!user) return;
 
@@ -77,7 +76,7 @@ function Dashboard() {
       <Sidebar
         circles={circles}
         activeCircleId={null}
-        onSelectCircle={(id) => navigate(`/circles/${id}`)}
+        onSelectCircle={(circleId) => navigate(`/circles/${circleId}`)}
       />
 
       <main className="dashboard-container">
@@ -93,10 +92,9 @@ function Dashboard() {
           Welcome back, <strong>{user.name}</strong>
         </p>
 
-        {/* 🔔 INVITES */}
         {invites.length > 0 && (
           <div className="invite-box">
-            <h3>🔔 Invitations</h3>
+            <h3>Invitations</h3>
             {invites.map((invite) => (
               <div key={invite.token} className="invite-card">
                 <p>
@@ -104,9 +102,7 @@ function Dashboard() {
                 </p>
                 <button
                   className="btn btn-primary"
-                  onClick={() =>
-                    navigate(`/invite/${invite.token}`)
-                  }
+                  onClick={() => navigate(`/invite/${invite.token}`)}
                 >
                   Accept Invite
                 </button>
@@ -116,17 +112,11 @@ function Dashboard() {
         )}
 
         <div className="dashboard-actions">
-          <button
-            className="btn btn-outline"
-            onClick={() => setDarkMode((p) => !p)}
-          >
-            {darkMode ? "☀ Light" : "🌙 Dark"}
+          <button className="btn btn-outline" onClick={() => setDarkMode((p) => !p)}>
+            {darkMode ? "Switch to Light" : "Switch to Dark"}
           </button>
 
-          <button
-            className="btn btn-primary"
-            onClick={() => setIsCreateOpen(true)}
-          >
+          <button className="btn btn-primary" onClick={() => setIsCreateOpen(true)}>
             + Create Circle
           </button>
         </div>
@@ -149,14 +139,12 @@ function Dashboard() {
         </div>
 
         {loading ? (
-          <p className="loading-text">Loading…</p>
+          <p className="loading-text">Loading...</p>
         ) : (
           <div className="circles-grid">
             {circles.map((circle) => (
               <div key={circle._id} className="circle-card">
-                <h3 onClick={() => navigate(`/circles/${circle._id}`)}>
-                  {circle.name}
-                </h3>
+                <h3 onClick={() => navigate(`/circles/${circle._id}`)}>{circle.name}</h3>
 
                 <p>{circle.description}</p>
 
@@ -164,27 +152,16 @@ function Dashboard() {
                   <span>{circle.members.length} members</span>
 
                   <div className="circle-actions">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() =>
-                        navigate(`/circles/${circle._id}`)
-                      }
-                    >
+                    <button className="btn btn-primary" onClick={() => navigate(`/circles/${circle._id}`)}>
                       Open
                     </button>
 
                     {isOwner(circle) ? (
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => setDeleteId(circle._id)}
-                      >
+                      <button className="btn btn-danger" onClick={() => setDeleteId(circle._id)}>
                         Delete
                       </button>
                     ) : (
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => setLeaveId(circle._id)}
-                      >
+                      <button className="btn btn-danger" onClick={() => setLeaveId(circle._id)}>
                         Leave
                       </button>
                     )}
@@ -195,10 +172,7 @@ function Dashboard() {
           </div>
         )}
 
-        <CreateCircleModal
-          isOpen={isCreateOpen}
-          onClose={() => setIsCreateOpen(false)}
-        />
+        <CreateCircleModal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
 
         <ConfirmDeleteModal
           isOpen={Boolean(deleteId)}
@@ -207,7 +181,7 @@ function Dashboard() {
           onConfirm={async () => {
             setDeleting(true);
             await deleteCircle(deleteId);
-            setCircles((c) => c.filter((x) => x._id !== deleteId));
+            setCircles((current) => current.filter((item) => item._id !== deleteId));
             setDeleteId(null);
             setDeleting(false);
           }}
@@ -220,7 +194,7 @@ function Dashboard() {
           onConfirm={async () => {
             setLeaving(true);
             await leaveCircle(leaveId);
-            setCircles((c) => c.filter((x) => x._id !== leaveId));
+            setCircles((current) => current.filter((item) => item._id !== leaveId));
             setLeaveId(null);
             setLeaving(false);
           }}

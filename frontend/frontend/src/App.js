@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
@@ -8,49 +9,36 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
 import AcceptInvite from "./pages/AcceptInvite";
 
-
 function App() {
   const { user, loading } = useAuth();
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    document.body.classList.remove("dark", "light");
+    document.body.classList.add(savedTheme === "light" ? "light" : "dark");
+  }, []);
+
   return (
     <BrowserRouter>
-      {/* ⏳ Global loading overlay */}
       {loading && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#fff",
-            zIndex: 9999,
-          }}
-        >
+        <div className="app-loading-overlay">
           <p>Loading...</p>
         </div>
       )}
 
-      {/* Navbar only when auth is ready */}
       {!loading && <Navbar />}
 
       <Routes>
-        {/* AUTH ROUTES */}
         <Route
           path="/login"
-          element={
-            user ? <Navigate to="/dashboard" replace /> : <Login />
-          }
+          element={user ? <Navigate to="/dashboard" replace /> : <Login />}
         />
 
         <Route
           path="/register"
-          element={
-            user ? <Navigate to="/dashboard" replace /> : <Register />
-          }
+          element={user ? <Navigate to="/dashboard" replace /> : <Register />}
         />
 
-        {/* DASHBOARD */}
         <Route
           path="/dashboard"
           element={
@@ -60,7 +48,6 @@ function App() {
           }
         />
 
-        {/* CIRCLE DETAIL */}
         <Route
           path="/circles/:id"
           element={
@@ -79,18 +66,11 @@ function App() {
           }
         />
 
-        {/* ROOT */}
         <Route
           path="/"
-          element={
-            <Navigate
-              to={user ? "/dashboard" : "/login"}
-              replace
-            />
-          }
+          element={<Navigate to={user ? "/dashboard" : "/login"} replace />}
         />
 
-        {/* FALLBACK */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

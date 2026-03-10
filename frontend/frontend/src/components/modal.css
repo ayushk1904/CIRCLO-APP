@@ -1,0 +1,75 @@
+.modal-overlay-shared {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--panel-strong) 78%, transparent);
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  z-index: 1000;
+}
+
+.modal-card-shared {
+  width: min(420px, 100%);
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--panel-strong);
+  box-shadow: var(--glass-shadow);
+  padding: 18px;
+  color: var(--text-main);
+}
+
+.modal-title-shared {
+  margin: 0 0 10px;
+}
+
+.modal-text-shared {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+}
+
+.modal-field-shared,
+.modal-textarea-shared {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  color: var(--text-main);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.modal-textarea-shared {
+  resize: vertical;
+  min-height: 92px;
+}
+
+.modal-error-shared {
+  color: var(--danger);
+  margin: 0 0 8px;
+}
+
+.modal-actions-shared {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-btn-shared {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  color: var(--text-main);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.modal-btn-primary {
+  color: var(--primary-btn-text);
+  background: var(--primary-btn-bg);
+}
+
+.modal-btn-danger {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 50%, transparent);
+  background: var(--danger-surface);
+}

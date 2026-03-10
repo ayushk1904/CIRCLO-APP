@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { createCircle } from "../services/circle.service";
+import "./modal.css";
 
-function CreateCircleModal({ isOpen, onClose, onCreated }) {
+function CreateCircleModal({ isOpen, onClose, onCreated = () => {} }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -24,11 +25,7 @@ function CreateCircleModal({ isOpen, onClose, onCreated }) {
       setLoading(true);
 
       const res = await createCircle({ name, description });
-
-      const circle =
-        res?.data?.circle ||
-        res?.data?.data ||
-        res?.data;
+      const circle = res?.data?.circle || res?.data?.data || res?.data;
 
       if (circle && circle.name) {
         onCreated(circle);
@@ -37,24 +34,18 @@ function CreateCircleModal({ isOpen, onClose, onCreated }) {
         setError("Unexpected server response");
       }
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Failed to create circle"
-      );
+      setError(err.response?.data?.message || "Failed to create circle");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
-        <h3>Create Circle</h3>
+    <div className="modal-overlay-shared">
+      <div className="modal-card-shared">
+        <h3 className="modal-title-shared">Create Circle</h3>
 
-        {error && (
-          <p style={{ color: "red", marginBottom: 8 }}>
-            {error}
-          </p>
-        )}
+        {error && <p className="modal-error-shared">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -62,7 +53,7 @@ function CreateCircleModal({ isOpen, onClose, onCreated }) {
             placeholder="Circle name"
             required
             disabled={loading}
-            style={{ width: "100%", marginBottom: 8 }}
+            className="modal-field-shared"
           />
 
           <textarea
@@ -70,15 +61,15 @@ function CreateCircleModal({ isOpen, onClose, onCreated }) {
             placeholder="Description (optional)"
             rows={3}
             disabled={loading}
-            style={{ width: "100%", marginBottom: 8 }}
+            className="modal-textarea-shared"
           />
 
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
-            <button type="button" onClick={onClose} disabled={loading}>
+          <div className="modal-actions-shared">
+            <button type="button" className="modal-btn-shared" onClick={onClose} disabled={loading}>
               Cancel
             </button>
 
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="modal-btn-shared modal-btn-primary" disabled={loading}>
               {loading ? "Creating..." : "Create"}
             </button>
           </div>
@@ -88,25 +79,4 @@ function CreateCircleModal({ isOpen, onClose, onCreated }) {
   );
 }
 
-const overlayStyle = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 1000,
-};
-
-const modalStyle = {
-  background: "#fff",
-  padding: 20,
-  borderRadius: 8,
-  width: 400,
-};
-
 export default CreateCircleModal;
-
-
-
-

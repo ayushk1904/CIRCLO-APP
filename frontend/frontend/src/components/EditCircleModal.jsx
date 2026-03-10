@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { updateCircle } from "../services/circle.service";
+import "./modal.css";
 
-function EditCircleModal({ isOpen, onClose, circle, onUpdated }) {
+function EditCircleModal({ isOpen, onClose, circle, onUpdated = () => {} }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,36 +28,29 @@ function EditCircleModal({ isOpen, onClose, circle, onUpdated }) {
 
     try {
       setLoading(true);
-
-      const res = await updateCircle(circle._id, {
-        name,
-        description,
-      });
-
+      const res = await updateCircle(circle._id, { name, description });
       onUpdated(res.data.circle);
       onClose();
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Failed to update circle"
-      );
+      setError(err.response?.data?.message || "Failed to update circle");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
-        <h3>Edit Circle</h3>
+    <div className="modal-overlay-shared">
+      <div className="modal-card-shared">
+        <h3 className="modal-title-shared">Edit Circle</h3>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="modal-error-shared">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={loading}
-            style={{ width: "100%", marginBottom: 8 }}
+            className="modal-field-shared"
           />
 
           <textarea
@@ -64,14 +58,14 @@ function EditCircleModal({ isOpen, onClose, circle, onUpdated }) {
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
             disabled={loading}
-            style={{ width: "100%", marginBottom: 8 }}
+            className="modal-textarea-shared"
           />
 
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
-            <button type="button" onClick={onClose} disabled={loading}>
+          <div className="modal-actions-shared">
+            <button type="button" className="modal-btn-shared" onClick={onClose} disabled={loading}>
               Cancel
             </button>
-            <button type="submit" disabled={loading}>
+            <button type="submit" className="modal-btn-shared modal-btn-primary" disabled={loading}>
               {loading ? "Saving..." : "Save"}
             </button>
           </div>
@@ -80,22 +74,5 @@ function EditCircleModal({ isOpen, onClose, circle, onUpdated }) {
     </div>
   );
 }
-
-const overlayStyle = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 1000,
-};
-
-const modalStyle = {
-  background: "#fff",
-  padding: 20,
-  borderRadius: 8,
-  width: 400,
-};
 
 export default EditCircleModal;
